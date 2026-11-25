@@ -1,0 +1,7 @@
+fastapi
+python-dotenv
+python-multipart
+numpy
+opencv-python>=4.8,<5
+uvicorn[standard]
+slowapi
