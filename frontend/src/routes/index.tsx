@@ -185,7 +185,9 @@ function HomePage() {
     if (inputRef.current) inputRef.current.value = "";
   }
 
-  const completedCount = images.filter((image) => image.status === "ready").length;
+  const completedCount = images.filter(
+    (image) => image.status === "ready",
+  ).length;
 
   return (
     <main className="app-shell">
@@ -212,18 +214,30 @@ function HomePage() {
 
       <section className="hero">
         <div className="eyebrow">
-          <span className="eyebrow-icon"><SparkleIcon /></span>
+          <span className="eyebrow-icon">
+            <SparkleIcon />
+          </span>
           YOUR PHOTOS, YOUR PRIVACY
         </div>
-        <h1>Share the ride.<br /><span>Not the plate.</span></h1>
+        <h1>
+          Share the ride.
+          <br />
+          <span>Not the plate.</span>
+        </h1>
         <p className="hero-copy">
           Automatically blur license plates in your vehicle photos.
           <br className="desktop-break" /> Simple, secure, and done in seconds.
         </p>
         <div className="trust-row">
-          <span><CheckIcon /> No account needed</span>
-          <span><CheckIcon /> Images never stored</span>
-          <span><CheckIcon /> Free to use</span>
+          <span>
+            <CheckIcon /> No account needed
+          </span>
+          <span>
+            <CheckIcon /> Images never stored
+          </span>
+          <span>
+            <CheckIcon /> Free to use
+          </span>
         </div>
       </section>
 
@@ -252,42 +266,76 @@ function HomePage() {
               event.target.value = "";
             }}
           />
-          <div className="upload-icon"><UploadIcon /></div>
+          <div className="upload-icon">
+            <UploadIcon />
+          </div>
           <div className="upload-message">
             <strong>Drop your photos here</strong>
-            <span>or <button className="text-button" onClick={() => inputRef.current?.click()}>browse files</button> from your device</span>
+            <span>
+              or{" "}
+              <button
+                className="text-button"
+                onClick={() => inputRef.current?.click()}
+              >
+                browse files
+              </button>{" "}
+              from your device
+            </span>
           </div>
-          <button className="button button-primary upload-button" onClick={() => inputRef.current?.click()}>
+          <button
+            className="button button-primary upload-button"
+            onClick={() => inputRef.current?.click()}
+          >
             <UploadIcon />
             Choose images
           </button>
-          <span className="file-hint">JPG, PNG, WEBP or BMP <i /> Up to 20 MB each</span>
-          {notice && <span className="notice" role="status">{notice}</span>}
+          <span className="file-hint">
+            JPG, PNG, WEBP or BMP <i /> Up to 20 MB each
+          </span>
+          {notice && (
+            <span className="notice" role="status">
+              {notice}
+            </span>
+          )}
         </div>
 
         <div className="results-card">
           <div className="results-heading">
             <div className="results-title">
-              <span className="results-icon"><ImageIcon /></span>
+              <span className="results-icon">
+                <ImageIcon />
+              </span>
               <div>
                 <h2>Your images</h2>
-                <p>{images.length ? `${completedCount} of ${images.length} ready` : "Your processed images will appear here"}</p>
+                <p>
+                  {images.length
+                    ? `${completedCount} of ${images.length} ready`
+                    : "Your processed images will appear here"}
+                </p>
               </div>
             </div>
             {images.length > 0 && (
-              <button className="clear-button" onClick={clearImages}>Clear all</button>
+              <button className="clear-button" onClick={clearImages}>
+                Clear all
+              </button>
             )}
           </div>
 
           {images.length === 0 ? (
             <div className="empty-state">
               <div className="empty-art">
-                <div className="empty-photo"><ImageIcon /></div>
+                <div className="empty-photo">
+                  <ImageIcon />
+                </div>
                 <span className="empty-sparkle sparkle-one">✦</span>
                 <span className="empty-sparkle sparkle-two">✦</span>
               </div>
               <strong>Ready when you are</strong>
-              <span>Add a vehicle photo to get started.<br />We’ll take care of the plates.</span>
+              <span>
+                Add a vehicle photo to get started.
+                <br />
+                We’ll take care of the plates.
+              </span>
               <button
                 className="empty-demo-button"
                 onClick={() => tryDemo(DEMO_IMAGES[0])}
@@ -305,7 +353,9 @@ function HomePage() {
                     onClick={() => setActiveId(image.id)}
                     title={image.file.name}
                   >
-                    <span className="tab-index">{String(index + 1).padStart(2, "0")}</span>
+                    <span className="tab-index">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
                     <span className="tab-name">{image.file.name}</span>
                     <span className={`tab-status ${image.status}`} />
                   </button>
@@ -314,7 +364,10 @@ function HomePage() {
               {activeImage && (
                 <>
                   <div className="preview-grid">
-                    <Preview label="Original" source={activeImage.originalUrl} />
+                    <Preview
+                      label="Original"
+                      source={activeImage.originalUrl}
+                    />
                     <Preview
                       label="PlateBlur"
                       source={activeImage.blurredUrl}
@@ -325,7 +378,9 @@ function HomePage() {
                   </div>
                   {activeImage.status === "ready" && activeImage.blurredUrl && (
                     <div className="download-row">
-                      <span className="success-label"><CheckIcon /> Plate blur complete</span>
+                      <span className="success-label">
+                        <CheckIcon /> Plate blur complete
+                      </span>
                       <a
                         className="button button-download"
                         href={activeImage.blurredUrl}
@@ -338,10 +393,25 @@ function HomePage() {
                   {activeImage.status === "error" && (
                     <div className="error-row">
                       <span>{activeImage.error}</span>
-                      <button className="text-button" onClick={() => {
-                        setImages((current) => current.map((item) => item.id === activeImage.id ? { ...item, status: "processing", error: undefined } : item));
-                        void processFile(activeImage);
-                      }}>Try again</button>
+                      <button
+                        className="text-button"
+                        onClick={() => {
+                          setImages((current) =>
+                            current.map((item) =>
+                              item.id === activeImage.id
+                                ? {
+                                    ...item,
+                                    status: "processing",
+                                    error: undefined,
+                                  }
+                                : item,
+                            ),
+                          );
+                          void processFile(activeImage);
+                        }}
+                      >
+                        Try again
+                      </button>
                     </div>
                   )}
                 </>
@@ -351,11 +421,18 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="demo-section" id="demo-images" aria-labelledby="demo-heading">
+      <section
+        className="demo-section"
+        id="demo-images"
+        aria-labelledby="demo-heading"
+      >
         <div className="demo-heading">
           <span className="section-kicker">NO PHOTO? TRY A SAMPLE</span>
           <h2 id="demo-heading">See how plate visibility affects results.</h2>
-          <p>These sample photos go through the same blurring process as your uploads.</p>
+          <p>
+            These sample photos go through the same blurring process as your
+            uploads.
+          </p>
         </div>
         <div className="demo-grid">
           {DEMO_IMAGES.map((demo) => (
@@ -406,9 +483,7 @@ function HomePage() {
       >
         <div className="use-case-heading">
           <span className="section-kicker">MADE FOR REAL-LIFE SHARING</span>
-          <h2 id="use-cases-heading">
-            A safer way to share vehicle photos.
-          </h2>
+          <h2 id="use-cases-heading">A safer way to share vehicle photos.</h2>
           <p>
             Blur visible plates before posting car photos online, sending them
             to a buyer, or sharing a day out.
@@ -416,7 +491,9 @@ function HomePage() {
         </div>
         <div className="use-case-grid">
           <article className="use-case-card">
-            <div className="use-case-icon"><ImageIcon /></div>
+            <div className="use-case-icon">
+              <ImageIcon />
+            </div>
             <h3>Car listings and classifieds</h3>
             <p>
               Blur a readable registration plate in vehicle photos before
@@ -424,7 +501,9 @@ function HomePage() {
             </p>
           </article>
           <article className="use-case-card">
-            <div className="use-case-icon"><SparkleIcon /></div>
+            <div className="use-case-icon">
+              <SparkleIcon />
+            </div>
             <h3>Social media and forums</h3>
             <p>
               Give car-spotting, meet-up, and ownership photos a privacy check
@@ -432,7 +511,9 @@ function HomePage() {
             </p>
           </article>
           <article className="use-case-card">
-            <div className="use-case-icon"><ScanIcon /></div>
+            <div className="use-case-icon">
+              <ScanIcon />
+            </div>
             <h3>Road trips and events</h3>
             <p>
               Process a batch of travel or event photos before sharing them with
@@ -440,7 +521,9 @@ function HomePage() {
             </p>
           </article>
           <article className="use-case-card">
-            <div className="use-case-icon"><LockIcon /></div>
+            <div className="use-case-icon">
+              <LockIcon />
+            </div>
             <h3>Everyday vehicle privacy</h3>
             <p>
               Preview each result and download a JPEG when you want to hide a
@@ -460,19 +543,38 @@ function HomePage() {
           <h2>Privacy shouldn’t be complicated.</h2>
         </div>
         <div className="feature-grid">
-          <Feature icon={<ScanIcon />} number="01" title="Drop in a photo" description="Choose one image or a whole batch. We support all the formats you already use." />
-          <Feature icon={<SparkleIcon />} number="02" title="Plates get blurred" description="Our license plate detector finds and blurs visible plates automatically." />
-          <Feature icon={<LockIcon />} number="03" title="Download & share" description="Your photos are processed in memory and never saved to a server." />
+          <Feature
+            icon={<ScanIcon />}
+            number="01"
+            title="Drop in a photo"
+            description="Choose one image or a whole batch. We support all the formats you already use."
+          />
+          <Feature
+            icon={<SparkleIcon />}
+            number="02"
+            title="Plates get blurred"
+            description="Our license plate detector finds and blurs visible plates automatically."
+          />
+          <Feature
+            icon={<LockIcon />}
+            number="03"
+            title="Download & share"
+            description="Your photos are processed in memory and never saved to a server."
+          />
         </div>
       </section>
 
       <footer className="footer">
         <a className="brand footer-brand" href="/">
-          <span className="brand-mark"><ShieldIcon /></span>
+          <span className="brand-mark">
+            <ShieldIcon />
+          </span>
           <span>plateblur</span>
         </a>
         <span>Made for sharing a little more safely.</span>
-        <span className="footer-status"><span className="privacy-dot" /> Images stay yours</span>
+        <span className="footer-status">
+          <span className="privacy-dot" /> Images stay yours
+        </span>
       </footer>
     </main>
   );
@@ -494,25 +596,64 @@ function Preview({
   return (
     <div className="preview-panel">
       <div className="preview-label">
-        <span>{label === "PlateBlur" ? <><span className="brand-dot" /> {label}</> : label}</span>
-        {label === "PlateBlur" && detected !== undefined && !loading && !error && (
-          <span className="detected-count">{detected} {detected === 1 ? "plate" : "plates"}</span>
-        )}
+        <span>
+          {label === "PlateBlur" ? (
+            <>
+              <span className="brand-dot" /> {label}
+            </>
+          ) : (
+            label
+          )}
+        </span>
+        {label === "PlateBlur" &&
+          detected !== undefined &&
+          !loading &&
+          !error && (
+            <span className="detected-count">
+              {detected} {detected === 1 ? "plate" : "plates"}
+            </span>
+          )}
       </div>
       <div className="preview-image">
         {source && <img src={source} alt={`${label} preview`} />}
-        {loading && <div className="preview-overlay"><span className="spinner" /><span>Finding plates…</span></div>}
-        {error && <div className="preview-overlay preview-error"><span>{error}</span></div>}
-        {!source && !loading && !error && <div className="preview-placeholder"><ImageIcon /></div>}
+        {loading && (
+          <div className="preview-overlay">
+            <span className="spinner" />
+            <span>Finding plates…</span>
+          </div>
+        )}
+        {error && (
+          <div className="preview-overlay preview-error">
+            <span>{error}</span>
+          </div>
+        )}
+        {!source && !loading && !error && (
+          <div className="preview-placeholder">
+            <ImageIcon />
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
-function Feature({ icon, number, title, description }: { icon: React.ReactNode; number: string; title: string; description: string }) {
+function Feature({
+  icon,
+  number,
+  title,
+  description,
+}: {
+  icon: React.ReactNode;
+  number: string;
+  title: string;
+  description: string;
+}) {
   return (
     <article className="feature-card">
-      <div className="feature-top"><span className="feature-icon">{icon}</span><span className="feature-number">{number}</span></div>
+      <div className="feature-top">
+        <span className="feature-icon">{icon}</span>
+        <span className="feature-number">{number}</span>
+      </div>
       <h3>{title}</h3>
       <p>{description}</p>
     </article>
@@ -520,26 +661,132 @@ function Feature({ icon, number, title, description }: { icon: React.ReactNode; 
 }
 
 function ShieldIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 19 6v5c0 4.7-3 8-7 10-4-2-7-5.3-7-10V6l7-3Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>;
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M12 3 19 6v5c0 4.7-3 8-7 10-4-2-7-5.3-7-10V6l7-3Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+      />
+      <path
+        d="m9 12 2 2 4-4"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
 }
 function UploadIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 16V4m0 0L7 9m5-5 5 5M5 15v4a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>;
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M12 16V4m0 0L7 9m5-5 5 5M5 15v4a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-4"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
 }
 function ImageIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3" stroke="currentColor" strokeWidth="1.7"/><circle cx="8.5" cy="9" r="1.5" stroke="currentColor" strokeWidth="1.5"/><path d="m4 17 5-5 3 3 3-4 5 6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>;
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect
+        x="3"
+        y="4"
+        width="18"
+        height="16"
+        rx="3"
+        stroke="currentColor"
+        strokeWidth="1.7"
+      />
+      <circle cx="8.5" cy="9" r="1.5" stroke="currentColor" strokeWidth="1.5" />
+      <path
+        d="m4 17 5-5 3 3 3-4 5 6"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
 }
 function SparkleIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m12 3 1.8 6.2L20 11l-6.2 1.8L12 19l-1.8-6.2L4 11l6.2-1.8L12 3Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round"/><path d="m19 15 .9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15Z" fill="currentColor"/></svg>;
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="m12 3 1.8 6.2L20 11l-6.2 1.8L12 19l-1.8-6.2L4 11l6.2-1.8L12 3Z"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinejoin="round"
+      />
+      <path
+        d="m19 15 .9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
 }
 function CheckIcon() {
-  return <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m5 10 3.2 3.2L15.5 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>;
+  return (
+    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path
+        d="m5 10 3.2 3.2L15.5 6"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
 }
 function DownloadIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 17v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>;
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M12 4v11m0 0 4-4m-4 4-4-4M5 17v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
 }
 function LockIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2.5" stroke="currentColor" strokeWidth="1.7"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 4v3" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>;
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect
+        x="4"
+        y="10"
+        width="16"
+        height="11"
+        rx="2.5"
+        stroke="currentColor"
+        strokeWidth="1.7"
+      />
+      <path
+        d="M8 10V7a4 4 0 0 1 8 0v3m-4 4v3"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
 }
 function ScanIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3M7 12h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>;
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3M7 12h10"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
 }
