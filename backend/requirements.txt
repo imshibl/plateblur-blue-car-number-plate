@@ -2,6 +2,6 @@ fastapi
 python-dotenv
 python-multipart
 numpy
-opencv-python>=4.8,<5
+opencv-python-headless==4.12.0.88
 uvicorn[standard]
 slowapi
